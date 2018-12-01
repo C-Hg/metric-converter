@@ -1,0 +1,21 @@
+{
+  "name": "metric-converter",
+  "version": "1.0.0",
+  "description": "First InfoSec and Quality assurance FreeCodeCamp project",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha --exit"
+  },
+  "author": "Camille HAGENBOURGER",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "helmet": "^3.15.0",
+    "mocha": "^5.2.0",
+    "zombie": "^6.1.4"
+  }
+}
