@@ -2,8 +2,8 @@
 
 ## User Stories
 
-* I will help prevent the client from trying to guess(sniff) the MIME type.
-* I will prevent cross-site scripting (XSS) attacks.
+* [x] I will help prevent the client from trying to guess(sniff) the MIME type. 
+* [x] I will prevent cross-site scripting (XSS) attacks.
 * I can <b>GET</b> <code>/api/convert</code> with a single parameter containing an accepted number and unit and have it converted.>
 Hint: Split the input by looking for the index of the first character.
 * I can convert 'gal' to 'L' and vice versa. <b>(1 gal to 3.78541 L)</b>
