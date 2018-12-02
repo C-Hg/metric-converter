@@ -1,19 +1,12 @@
-exports.convert_input = function (req, res) {
-    let input = req.query.input;
-    const globalRegex = /^(\d*(\.\d+)?(\/\d+(\.\d*)?)?)(gal|l|lbs|kg|mi|km)$/;
+exports.checkInputFormat = function (input) {
+    const globalRegex = /^(\d*(\.\d+)?(\/\d+(\.\d*)?)?)(gal|l|lbs|kg|mi|km)$/
+    return input.match(globalRegex);
+}
 
-    let isInputFormatCorrect = input.match(globalRegex);
-    if (!isInputFormatCorrect) {
-        sendFormatError(input, res);
-        return;
-    }
-
-    const initNumber = isInputFormatCorrect[1];  
-    const initUnit = isInputFormatCorrect[5];
-
-    let number = eval(initNumber);
+exports.convertHandler = function (initNumber, initUnit) {
     let result = "";
     let returnUnit = "";
+    let number = eval(initNumber);
 
     switch (initUnit) {
         case "gal":
@@ -46,20 +39,10 @@ exports.convert_input = function (req, res) {
             returnUnit = "mi";
             break;
     }
-    let fixedResult = Number(result.toFixed(5));
+    return ([result, returnUnit]);
+};
 
-    res.json(
-        {
-            'initNum': initNumber,
-            'initUnit': initUnit,
-            'returnNum': result,
-            'returnUnit': returnUnit,
-            'string': `<code>${initNumber} ${initUnit} converts to ${fixedResult} ${returnUnit}</code>`
-        });
-    return;
-}
-
-sendFormatError = function (input, res) {
+exports.sendFormatError = function (input, res) {
     const numberRegex = /^(\d*(\.\d+)?(\/\d+(\.\d*)?)?)$/;
     const unitRegex = /^(gal|l|lbs|kg|mi|km)$/;
     const firstLetter = input.search(/[a-z]/i);
@@ -74,14 +57,13 @@ sendFormatError = function (input, res) {
     let isUnitFormatCorrect = unitRegex.test(unit);
 
     if (isUnitFormatCorrect) {
-        res.json({"string" : "Invalid number"});
-        return;
+        return({"string" : "Invalid number"});
+        
     }
 
     if (isNumberFormatCorrect) {
-        res.json({"string" : "Invalid unit"});
-        return;
+        return({"string" : "Invalid unit"});
+        
     }
-    res.json({"string" : "Invalid number and unit"});
-    return;
+    return({"string" : "Invalid number and unit"});
 }

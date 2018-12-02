@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const cors = require('cors');
 
@@ -17,10 +16,10 @@ app.get("/", function (req, res) {
     res.sendFile(__dirname + '/views/index.html');
 });
 
-const converter = require('./controllers/convert.controller');
+const converter = require('./controllers/input.controller');
 
 //api routing
-app.get("/api/convert", converter.convert_input);
+app.get("/api/convert", converter.manage_input);
 
 const listener = app.listen(process.env.PORT || 3000, function () {
     console.log('Your app is listening on port ' + listener.address().port);
