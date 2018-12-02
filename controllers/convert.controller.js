@@ -8,7 +8,54 @@ exports.convert_input = function (req, res) {
         return;
     }
 
-    res.json({error: 'no error'});
+    const initNumber = isInputFormatCorrect[1];  
+    const initUnit = isInputFormatCorrect[5];
+
+    let number = eval(initNumber);
+    let result = "";
+    let returnUnit = "";
+
+    switch (initUnit) {
+        case "gal":
+            result = number * 3.78541;
+            returnUnit = "l";
+            break;
+
+        case "l":
+            result = number / 3.78541;
+            returnUnit = "gal";
+            break;
+
+        case "lbs":
+            result = number * 0.453592;
+            returnUnit = "kg";
+            break;
+
+        case "kg":
+            result = number / 0.453592;
+            returnUnit = "lbs";
+            break;
+
+        case "mi":
+            result = number * 1.60934;
+            returnUnit = "km";
+            break;
+
+        case "km":
+            result = number / 1.60934;
+            returnUnit = "mi";
+            break;
+    }
+    result = Number(result.toFixed(5));
+
+    res.json(
+        {
+            'initNum': initNumber,
+            'initUnit': initUnit,
+            'returnNum': result,
+            'returnUnit': returnUnit,
+            'string': `<code>${initNumber} ${initUnit} converts to ${result} ${returnUnit}</code>`
+        });
     return;
 }
 

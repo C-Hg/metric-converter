@@ -7,7 +7,6 @@ const cors = require('cors');
 //app config
 app.use(helmet.xssFilter());
 app.use(helmet.noSniff());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({ optionSuccessStatus: 200 }));
 
 //public assets
