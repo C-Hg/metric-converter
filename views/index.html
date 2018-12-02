@@ -8,6 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="./public/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:300" type="text/css">
 </head>
 
 <body>
@@ -16,24 +17,15 @@
       Metric-Imperial Converter
     </h1>
   </header>
-  <h3>Example usage:</h3>
-  <code>/api/convert?input=4gal</code><br>
-  <code>/api/convert?input=1/2km</code><br>
-  <code>/api/convert?input=5.4/3lbs</code><br>
-  <code>/api/convert?input=kg</code><br>
-  <h3>Example return:</h3>
-  <code>{initNum: 3.1, initUnit: 'mi', returnNum: 5.0000008, returnUnit: 'km', string: '3.1 miles converts to 5.00002 kilometers'}</code>
-  <hr style='margin: 50px'>
-  <div id='testui' style='margin-left: 5%'>
-    <h2 style="text-align: left">Front-End:</h2>
+  <div id='testui'>
+    <h2>Accepted units: gal/L, lbs/kg, mi/km</h2>
     <form id="convertForm" class="border">
       <input type="text" id="convertField" name="input" placeholder="3.1mi" style="width: 200px">
       <input id="convert" type="submit" value='Convert!'>
     </form>
     <p id='result'></p>
-    <code id='jsonResult'></code>
+    <div id='jsonResult'></div>
   </div>
-  <hr style='margin: 50px; margin-top: 200px'>
 
   <script type="text/javascript">
   console.log(document.readyState);
@@ -47,7 +39,10 @@
         req.open("GET", query, true);
         req.send();
         req.onload = function () {
-          document.getElementById('result').innerHTML = req.responseText;
+          console.log(req.responseText);
+          let json=JSON.parse(req.responseText); 
+          document.getElementById('result').innerHTML = json.string;
+          document.getElementById('jsonResult').innerHTML = "Raw JSON response : " + req.responseText;
         };
     });
    } 

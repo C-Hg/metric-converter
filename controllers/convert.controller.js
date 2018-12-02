@@ -46,7 +46,7 @@ exports.convert_input = function (req, res) {
             returnUnit = "mi";
             break;
     }
-    result = Number(result.toFixed(5));
+    let fixedResult = Number(result.toFixed(5));
 
     res.json(
         {
@@ -54,7 +54,7 @@ exports.convert_input = function (req, res) {
             'initUnit': initUnit,
             'returnNum': result,
             'returnUnit': returnUnit,
-            'string': `<code>${initNumber} ${initUnit} converts to ${result} ${returnUnit}</code>`
+            'string': `<code>${initNumber} ${initUnit} converts to ${fixedResult} ${returnUnit}</code>`
         });
     return;
 }
@@ -74,14 +74,14 @@ sendFormatError = function (input, res) {
     let isUnitFormatCorrect = unitRegex.test(unit);
 
     if (isUnitFormatCorrect) {
-        res.send("Invalid number");
+        res.json({"string" : "Invalid number"});
         return;
     }
 
     if (isNumberFormatCorrect) {
-        res.send("Invalid unit");
+        res.json({"string" : "Invalid unit"});
         return;
     }
-    res.send("Invalid number and unit");
+    res.json({"string" : "Invalid number and unit"});
     return;
 }
