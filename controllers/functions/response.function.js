@@ -1,3 +1,5 @@
+const functions = require('./conversion.functions')
+
 exports.convert_input = function (input) {
     let isInputFormatCorrect = functions.checkInputFormat(input);
     
@@ -6,7 +8,10 @@ exports.convert_input = function (input) {
         return response;
     }
 
-    const initNumber = isInputFormatCorrect[1];  
+    let initNumber = isInputFormatCorrect[1];
+    if (initNumber === "") {
+        initNumber = 1;
+    }  
     const initUnit = isInputFormatCorrect[5];
 
     let convertionResults = functions.convertHandler(initNumber, initUnit);

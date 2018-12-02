@@ -21,17 +21,15 @@
     <h2>Accepted units: gal/L, lbs/kg, mi/km</h2>
     <form id="convertForm" class="border">
       <input type="text" id="convertField" name="input" placeholder="3.1mi" style="width: 200px">
-      <input id="convert" type="submit" value='Convert!'>
+      <button id="convert" type="submit" value='Convert!'>
     </form>
     <p id='result'></p>
     <div id='jsonResult'></div>
   </div>
 
   <script type="text/javascript">
-  console.log(document.readyState);
     window.onload = function () {
-      console.log(document.readyState);
-      document.forms[0].addEventListener("submit", function(e){
+      document.forms[0].addEventListener("submit", function (e) {
         e.preventDefault();
         var x = document.forms[0]["input"].value;
         var query = "api/convert?input=" + x;
@@ -40,15 +38,13 @@
         req.send();
         req.onload = function () {
           console.log(req.responseText);
-          let json=JSON.parse(req.responseText); 
+          let json = JSON.parse(req.responseText);
           document.getElementById('result').innerHTML = json.string;
           document.getElementById('jsonResult').innerHTML = "Raw JSON response : " + req.responseText;
         };
-    });
-   } 
-
+      });
+    } 
   </script>
- 
 </body>
 
 </html>

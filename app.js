@@ -19,7 +19,7 @@ app.get("/", function (req, res) {
 const converter = require('./controllers/input.controller');
 
 //api routing
-app.get("/api/convert", converter.manage_input);
+app.get("/api/convert", converter.send_response);
 
 const listener = app.listen(process.env.PORT || 3000, function () {
     console.log('Your app is listening on port ' + listener.address().port);

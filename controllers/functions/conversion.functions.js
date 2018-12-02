@@ -1,5 +1,5 @@
 exports.checkInputFormat = function (input) {
-    const globalRegex = /^(\d*(\.\d+)?(\/\d+(\.\d*)?)?)(gal|l|lbs|kg|mi|km)$/
+    const globalRegex = /^(\d*(\.\d+)?(\/\d+(\.\d*)?)?)(gal|l|lbs|kg|mi|km)$/i
     return input.match(globalRegex);
 }
 
@@ -42,10 +42,10 @@ exports.convertHandler = function (initNumber, initUnit) {
     return ([result, returnUnit]);
 };
 
-exports.sendFormatError = function (input, res) {
+exports.sendFormatError = function (input) {
     const numberRegex = /^(\d*(\.\d+)?(\/\d+(\.\d*)?)?)$/;
     const unitRegex = /^(gal|l|lbs|kg|mi|km)$/;
-    const firstLetter = input.search(/[a-z]/i);
+    const firstLetter = input.search(/[a-z]/i);   
 
     let unit = input.substr(firstLetter);
     let number = input.substr(0, firstLetter);
@@ -57,13 +57,12 @@ exports.sendFormatError = function (input, res) {
     let isUnitFormatCorrect = unitRegex.test(unit);
 
     if (isUnitFormatCorrect) {
-        return({"string" : "Invalid number"});
-        
+        return({"string" : "Invalid number"});   
     }
 
     if (isNumberFormatCorrect) {
-        return({"string" : "Invalid unit"});
-        
+        return({"string" : "Invalid unit"});  
     }
+
     return({"string" : "Invalid number and unit"});
 }
